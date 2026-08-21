@@ -1,0 +1,38 @@
+version: 2
+
+models:
+
+  - name: int_dimensao_produtos
+    description: "Integra os dados de produtos, subcategorias, categorias e modelos da Adventure Works."
+
+    columns:
+
+      - name: PK_product
+        description: "Identificador único do produto."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_product_sub_category
+        description: "Identificador da subcategoria do produto."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_productsubcategory')
+                field: PK_product_sub_category
+
+      - name: FK_product_category
+        description: "Identificador da categoria do produto."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_productcategory')
+                field: PK_product_category
+
+      - name: FK_product_model_id
+        description: "Identificador do modelo do produto."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_productmodel')
+                field: PK_product_model
