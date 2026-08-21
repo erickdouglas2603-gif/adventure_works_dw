@@ -10,7 +10,7 @@ sources:
       - name: production_productsubcategory
       - name: production_productcategory
       - name: production_productmodel
-
+      - name: person_businessentityaddress
       - name: sales_customer
       - name: sales_salesperson
       - name: sales_salesterritory

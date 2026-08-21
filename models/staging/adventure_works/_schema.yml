@@ -156,3 +156,200 @@ models:
 
       - name: modified_date
         description: "Data da última modificação do registro."
+
+  - name: stg_adventure_works__sales_customer
+    description: "Staging dos clientes da Adventure Works, com padronização de nomes e tipos."
+
+    columns:
+
+        - name: PK_customer
+          description: "Identificador único do cliente."
+          tests:
+            - not_null
+            - unique
+
+        - name: FK_person
+          description: "Identificador da pessoa associada ao cliente."
+          tests:
+            - relationships:
+                arguments:
+                  to: ref('stg_adventure_works__person_person')
+                  field: PK_business_entity
+
+        - name: FK_store
+          description: "Identificador da loja associada ao cliente."
+
+        - name: FK_territory
+          description: "Identificador do território associado ao cliente."
+
+        - name: rowguid
+          description: "Identificador global do registro na origem."
+
+        - name: modified_date
+          description: "Data da última modificação do registro."
+
+
+  - name: stg_adventure_works__person_person
+    description: "Staging das pessoas da Adventure Works, com padronização de nomes e tipos."
+
+    columns:
+
+        - name: PK_business_entity
+          description: "Identificador único da entidade de negócio."
+          tests:
+            - not_null
+            - unique
+
+        - name: person_type
+          description: "Tipo da pessoa."
+
+        - name: name_style
+          description: "Indica se o nome segue o padrão ocidental."
+
+        - name: title
+          description: "Título da pessoa. Pode ser nulo."
+
+        - name: first_name
+          description: "Primeiro nome da pessoa."
+
+        - name: middle_name
+          description: "Nome do meio da pessoa. Pode ser nulo."
+
+        - name: last_name
+          description: "Sobrenome da pessoa."
+
+        - name: suffix
+          description: "Sufixo do nome. Pode ser nulo."
+
+        - name: email_promotion
+          description: "Indica a preferência da pessoa em relação ao recebimento de promoções por email."
+
+        - name: rowguid
+          description: "Identificador global do registro na origem."
+
+        - name: modified_date
+          description: "Data da última modificação do registro."
+
+
+  - name: stg_adventure_works__person_businessentityaddress
+    description: "Staging do relacionamento entre entidades de negócio e endereços da Adventure Works."
+
+    columns:
+
+        - name: PK_business_entity
+          description: "Identificador da entidade de negócio."
+
+        - name: FK_address
+          description: "Identificador do endereço."
+          tests:
+            - not_null
+            - relationships:
+                arguments:
+                  to: ref('stg_adventure_works__person_address')
+                  field: PK_address
+
+        - name: FK_address_type
+          description: "Identificador do tipo de endereço."
+
+        - name: rowguid
+          description: "Identificador global do registro na origem."
+
+        - name: modified_date
+          description: "Data da última modificação do registro."
+
+
+  - name: stg_adventure_works__person_address
+    description: "Staging dos endereços da Adventure Works."
+
+    columns:
+
+        - name: PK_address
+          description: "Identificador único do endereço."
+          tests:
+            - not_null
+            - unique
+
+        - name: address_line_1
+          description: "Primeira linha do endereço."
+
+        - name: address_line_2
+          description: "Segunda linha do endereço. Pode ser nula."
+
+        - name: city
+          description: "Cidade do endereço."
+
+        - name: FK_state_province
+          description: "Identificador do estado ou província."
+          tests:
+            - relationships:
+                arguments:
+                  to: ref('stg_adventure_works__person_stateprovince')
+                  field: PK_state_province
+
+        - name: postal_code
+          description: "Código postal do endereço."
+
+        - name: spatial_location
+          description: "Localização espacial do endereço. Pode ser nula."
+
+        - name: rowguid
+          description: "Identificador global do registro na origem."
+
+        - name: modified_date
+          description: "Data da última modificação do registro."
+
+
+  - name: stg_adventure_works__person_stateprovince
+    description: "Staging dos estados e províncias da Adventure Works."
+
+    columns:
+
+        - name: PK_state_province
+          description: "Identificador único do estado ou província."
+          tests:
+            - not_null
+            - unique
+
+        - name: state_province_code
+          description: "Código do estado ou província."
+
+        - name: FK_country_region
+          description: "Código do país ou região."
+          tests:
+            - relationships:
+                arguments:
+                  to: ref('stg_adventure_works__person_countryregion')
+                  field: PK_country_region
+
+        - name: is_only_state_province
+          description: "Indica se o registro representa exclusivamente um estado ou província."
+
+        - name: state_province_name
+          description: "Nome do estado ou província."
+
+        - name: FK_territory
+          description: "Identificador do território."
+
+        - name: rowguid
+          description: "Identificador global do registro na origem."
+
+        - name: modified_date
+          description: "Data da última modificação do registro."
+
+
+  - name: stg_adventure_works__person_countryregion
+    description: "Staging dos países e regiões da Adventure Works."
+
+    columns:
+
+        - name: PK_country_region
+          description: "Código único do país ou região."
+          tests:
+            
+            - unique
+
+        - name: country_region_name
+          description: "Nome do país ou região."
+
+        - name: modified_date
+          description: "Data da última modificação do registro."
