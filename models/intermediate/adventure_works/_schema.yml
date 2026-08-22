@@ -135,3 +135,142 @@ models:
 
       - name: modified_date
         description: "Data da última modificação do endereço na origem."
+
+  - name: int_fato_vendas
+    description: >
+      Modelo intermediário que integra os itens dos pedidos de venda
+      com os respectivos cabeçalhos dos pedidos.
+      
+      Grain: uma linha por item de pedido (salesorderdetail).
+      
+      O modelo mantém os atributos transacionais necessários para
+      construção da fato de vendas e disponibiliza as chaves estrangeiras
+      necessárias para relacionamento com as dimensões.
+
+    columns:
+
+      - name: PK_sales_order_detail
+        description: "Identificador único do item do pedido. Define o grain do modelo."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_sales_order
+        description: "Identificador do pedido ao qual o item pertence."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesorderheader')
+                field: PK_sales_order
+
+      - name: FK_product
+        description: "Identificador do produto vendido."
+
+      - name: FK_special_offer
+        description: "Identificador da oferta especial aplicada ao item."
+
+      - name: FK_customer
+        description: "Identificador do cliente associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_customer')
+                field: PK_customer
+
+      - name: FK_sales_person
+        description: "Identificador do vendedor associado ao pedido."
+
+      - name: FK_territory
+        description: "Identificador do território associado ao pedido."
+
+      - name: FK_bill_to_address
+        description: "Identificador do endereço utilizado para cobrança."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_address')
+                field: PK_address
+
+      - name: FK_ship_to_address
+        description: "Identificador do endereço utilizado para entrega."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_address')
+                field: PK_address
+
+      - name: FK_ship_method
+        description: "Identificador do método de envio."
+
+      - name: FK_credit_card
+        description: "Identificador do cartão de crédito utilizado."
+
+      - name: revision_number
+        description: "Número de revisão do pedido."
+
+      - name: order_date
+        description: "Data de realização do pedido."
+
+      - name: due_date
+        description: "Data prevista para entrega."
+
+      - name: ship_date
+        description: "Data de envio."
+
+      - name: status_order
+        description: "Status do pedido."
+
+      - name: online_order_flag
+        description: "Indica se o pedido foi realizado online."
+
+      - name: purchase_order_number
+        description: "Número do pedido de compra."
+
+      - name: account_number
+        description: "Número da conta do cliente."
+
+      - name: credit_card_approval_code
+        description: "Código de aprovação do cartão."
+
+      - name: currency_rate_id
+        description: "Identificador da taxa de câmbio."
+
+      - name: subtotal
+        description: "Subtotal do pedido."
+
+      - name: tax_amt
+        description: "Valor de imposto do pedido."
+
+      - name: freight
+        description: "Valor de frete do pedido."
+
+      - name: total_due
+        description: "Valor total devido do pedido."
+
+      - name: order_comment
+        description: "Comentário associado ao pedido."
+
+      - name: carrier_tracking_number
+        description: "Código de rastreamento da transportadora."
+
+      - name: orderqty
+        description: "Quantidade de unidades do produto no item."
+
+      - name: unit_price
+        description: "Preço unitário do produto."
+
+      - name: unit_price_discount
+        description: "Desconto unitário aplicado ao item."
+
+      - name: detail_rowguid
+        description: "Identificador global do item do pedido."
+
+      - name: detail_modified_date
+        description: "Data da última modificação do item."
+
+      - name: order_rowguid
+        description: "Identificador global do pedido."
+
+      - name: order_modified_date
+        description: "Data da última modificação do pedido."

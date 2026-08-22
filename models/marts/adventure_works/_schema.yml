@@ -119,3 +119,102 @@ models:
 
       - name: modified_date
         description: "Data da última modificação do endereço na origem."
+
+  - name: fato_vendas
+    description: >
+      Fato de vendas da Adventure Works.
+      
+      Grain: uma linha por item de pedido (salesorderdetail).
+      
+      A tabela concentra os eventos transacionais de venda e suas
+      métricas quantitativas e monetárias, utilizando chaves estrangeiras
+      para relacionamento com as dimensões do Data Warehouse.
+
+    columns:
+
+      - name: PK_sales_order_detail
+        description: "Identificador único do item do pedido. Define o grain da fato."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_sales_order
+        description: "Identificador do pedido."
+
+      - name: FK_product
+        description: "Identificador do produto."
+
+      - name: FK_customer
+        description: "Identificador do cliente."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_clientes')
+                field: PK_customer
+
+      - name: FK_sales_person
+        description: "Identificador do vendedor."
+
+      - name: FK_territory
+        description: "Identificador do território."
+
+      - name: FK_bill_to_address
+        description: "Identificador do endereço de cobrança."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_enderecos')
+                field: PK_address
+
+      - name: FK_ship_to_address
+        description: "Identificador do endereço de entrega."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_enderecos')
+                field: PK_address
+
+      - name: FK_ship_method
+        description: "Identificador do método de envio."
+
+      - name: FK_credit_card
+        description: "Identificador do cartão de crédito."
+
+      - name: FK_special_offer
+        description: "Identificador da oferta especial."
+
+      - name: order_date
+        description: "Data em que o pedido foi realizado."
+
+      - name: due_date
+        description: "Data prevista para entrega."
+
+      - name: ship_date
+        description: "Data em que o pedido foi enviado."
+
+      - name: status_order
+        description: "Status do pedido."
+
+      - name: online_order_flag
+        description: "Indica se o pedido foi realizado online."
+
+      - name: orderqty
+        description: "Quantidade de unidades vendidas no item."
+
+      - name: unit_price
+        description: "Preço unitário do produto."
+
+      - name: unit_price_discount
+        description: "Desconto unitário aplicado ao item."
+
+      - name: subtotal
+        description: "Subtotal registrado no pedido."
+
+      - name: tax_amt
+        description: "Valor de imposto registrado no pedido."
+
+      - name: freight
+        description: "Valor de frete registrado no pedido."
+
+      - name: total_due
+        description: "Valor total devido registrado no pedido."
