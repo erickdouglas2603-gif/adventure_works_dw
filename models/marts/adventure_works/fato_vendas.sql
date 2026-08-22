@@ -24,5 +24,15 @@ SELECT
       , status_order
       , online_order_flag
       , purchase_order_number
+      , account_number
+      , credit_card_approval_code
+      , FK_currency_rate
+
+      , order_comment
+      , carrier_tracking_number
+      , orderqty
+      , unit_price
+      , unit_price_discount
 
 FROM int_fato_vendas
+
