@@ -409,3 +409,40 @@ models:
 
       - name: modified_date
         description: "Data da última modificação do registro."
+
+  - name: stg_adventure_works__person_address
+    description: "Staging dos endereços da Adventure Works."
+
+    columns:
+
+      - name: PK_address
+        description: "Identificador único do endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: address_line_1
+        description: "Primeira linha do endereço."
+
+      - name: address_line_2
+        description: "Segunda linha do endereço. Pode ser nula."
+
+      - name: city
+        description: "Cidade do endereço."
+
+      - name: FK_state_province
+        description: "Identificador do estado ou província associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_stateprovince')
+                field: PK_state_province
+
+      - name: postal_code
+        description: "Código postal do endereço."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última modificação do registro."

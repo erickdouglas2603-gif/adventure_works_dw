@@ -65,3 +65,57 @@ models:
 
           - name: modified_date
             description: "Data da última modificação do registro."
+  
+  - name: dim_enderecos
+    description: "Dimensão de endereços da Adventure Works, enriquecida com informações de estado e país."
+
+    columns:
+
+      - name: PK_address
+        description: "Identificador único do endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: address_line_1
+        description: "Primeira linha do endereço."
+
+      - name: address_line_2
+        description: "Segunda linha do endereço. Pode ser nula."
+
+      - name: city
+        description: "Cidade do endereço."
+
+      - name: postal_code
+        description: "Código postal do endereço."
+
+      - name: FK_state_province
+        description: "Identificador do estado ou província associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_stateprovince')
+                field: PK_state_province
+
+      - name: state_province_code
+        description: "Código do estado ou província."
+
+      - name: state_province_name
+        description: "Nome do estado ou província."
+
+      - name: FK_country_region
+        description: "Identificador do país ou região associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_countryregion')
+                field: PK_country_region
+
+      - name: country_region_name
+        description: "Nome do país ou região."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última modificação do endereço na origem."
