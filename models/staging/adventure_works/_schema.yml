@@ -446,3 +446,9 @@ models:
 
       - name: modified_date
         description: "Data da última modificação do registro."
+
+  - name: PK_sales_order
+    description: "Identificador único do pedido. O grain da staging é um registro por pedido."
+    tests:
+    - not_null
+    - unique
