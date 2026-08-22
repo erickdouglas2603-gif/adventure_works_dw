@@ -353,3 +353,59 @@ models:
 
         - name: modified_date
           description: "Data da última modificação do registro."
+
+  - name: stg_adventure_works__sales_customer
+    description: "Staging dos clientes da Adventure Works."
+
+    columns:
+
+      - name: PK_customer
+        description: "Identificador único do cliente."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_person
+        description: "Identificador da pessoa associada ao cliente."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_person')
+                field: PK_business_entity
+
+      - name: FK_store
+        description: "Identificador da loja associada ao cliente."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_store')
+                field: PK_sales_store
+
+      - name: FK_territory
+        description: "Identificador do território associado ao cliente."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
+
+  - name: stg_adventure_works__person_addresstype
+    description: "Tipos de endereço utilizados pela Adventure Works."
+
+    columns:
+
+      - name: PK_address_type
+        description: "Identificador único do tipo de endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: name_type_address
+        description: "Descrição do tipo de endereço."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última modificação do registro."

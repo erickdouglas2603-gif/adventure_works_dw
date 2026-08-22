@@ -36,3 +36,48 @@ models:
               arguments:
                 to: ref('stg_adventure_works__production_productmodel')
                 field: PK_product_model
+
+
+  - name: int_dimensao_clientes
+    description: "Integra os dados de clientes, pessoas e lojas, consolidando clientes pessoa e clientes loja em uma única entidade."
+
+    columns:
+
+      - name: PK_customer
+        description: "Identificador único do cliente."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_person
+        description: "Identificador da pessoa associada ao cliente. Pode ser nulo para clientes loja."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_person')
+                field: PK_business_entity
+
+      - name: customer_name
+        description: "Nome do cliente, obtido da pessoa ou da loja."
+        tests:
+          - not_null
+
+      - name: suffix
+        description: "Sufixo do nome da pessoa. Pode ser nulo para clientes loja."
+
+      - name: FK_store
+        description: "Identificador da loja associada ao cliente. Pode ser nulo para clientes pessoa."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_store')
+                field: PK_sales_store
+
+      - name: FK_territory
+        description: "Identificador do território associado ao cliente."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
