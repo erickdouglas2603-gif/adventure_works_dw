@@ -34,3 +34,34 @@ models:
               arguments:
                 to: ref('stg_adventure_works__production_productmodel')
                 field: PK_product_model
+  - name: dim_clientes
+    description: "Dimensão de clientes da Adventure Works, consolidando clientes pessoa e clientes loja em uma única entidade."
+
+    columns:
+
+          - name: PK_customer
+            description: "Identificador único do cliente."
+            tests:
+              - not_null
+              - unique
+
+          - name: FK_person
+            description: "Identificador da pessoa associada ao cliente. Pode ser nulo para clientes que representam lojas."
+
+          - name: customer_name
+            description: "Nome do cliente. Para clientes pessoa, utiliza o nome da pessoa; para clientes loja, utiliza o nome da loja."
+
+          - name: suffix
+            description: "Sufixo do nome da pessoa, quando aplicável. Pode ser nulo para clientes loja."
+
+          - name: FK_store
+            description: "Identificador da loja associada ao cliente. Pode ser nulo para clientes pessoa."
+
+          - name: FK_territory
+            description: "Identificador do território associado ao cliente."
+
+          - name: rowguid
+            description: "Identificador global do registro na origem."
+
+          - name: modified_date
+            description: "Data da última modificação do registro."

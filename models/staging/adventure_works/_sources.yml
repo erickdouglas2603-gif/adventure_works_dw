@@ -11,8 +11,10 @@ sources:
       - name: production_productcategory
       - name: production_productmodel
       - name: person_businessentityaddress
+      - name: person_addresstype
       - name: sales_customer
       - name: sales_salesperson
+      - name: sales_store
       - name: sales_salesterritory
       - name: sales_salesorderheader
       - name: sales_salesorderdetail
@@ -26,5 +28,3 @@ sources:
       - name: person_address
       - name: person_stateprovince
       - name: person_countryregion
-
-      - name: sales_store
