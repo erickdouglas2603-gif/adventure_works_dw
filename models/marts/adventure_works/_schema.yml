@@ -156,7 +156,12 @@ models:
         description: "Identificador do vendedor."
 
       - name: FK_territory
-        description: "Identificador do território."
+        description: "Identificador do território associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_territorios')
+                field: PK_territory
 
       - name: FK_bill_to_address
         description: "Identificador do endereço de cobrança."
@@ -257,3 +262,49 @@ models:
 
       - name: modified_date
         description: "Data da última alteração do registro na origem."
+
+  - name: dim_territorios
+    description: >
+      Dimensão de territórios de vendas da Adventure Works.
+      
+      Grain: uma linha por território.
+      
+      Contém os atributos geográficos e os indicadores registrados
+      na entidade SalesTerritory da origem.
+
+    columns:
+
+      - name: PK_territory
+        description: "Identificador único do território."
+        tests:
+          - not_null
+          - unique
+
+      - name: territory_name
+        description: "Nome do território de vendas."
+
+      - name: country_region_code
+        description: "Código do país ou região associado ao território."
+
+      - name: territory_group
+        description: "Grupo geográfico ao qual o território pertence."
+
+      - name: sales_ytd
+        description: "Valor de vendas acumulado no ano registrado na origem."
+
+      - name: sales_last_year
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: cost_ytd
+        description: "Custo acumulado no ano registrado na origem."
+
+      - name: cost_last_year
+        description: "Custo do ano anterior registrado na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última alteração do registro."
+
+  

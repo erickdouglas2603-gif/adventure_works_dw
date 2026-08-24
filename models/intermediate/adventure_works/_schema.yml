@@ -317,3 +317,43 @@ models:
               arguments:
                 to: ref('stg_adventure_works__sales_reason')
                 field: PK_sales_reason
+
+  - name: int_dimensao_territorios
+    description: >
+      Preparação da dimensão de territórios de vendas.
+      Grain: uma linha por território.
+
+    columns:
+
+      - name: PK_territory
+        description: "Identificador único do território. Define o grain da dimensão."
+        tests:
+          - not_null
+          - unique
+
+      - name: territory_name
+        description: "Nome do território de vendas."
+
+      - name: country_region_code
+        description: "Código do país ou região associado ao território."
+
+      - name: territory_group
+        description: "Grupo geográfico ao qual o território pertence."
+
+      - name: sales_ytd
+        description: "Valor de vendas acumulado no ano registrado na origem."
+
+      - name: sales_last_year
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: cost_ytd
+        description: "Custo acumulado no ano registrado na origem."
+
+      - name: cost_last_year
+        description: "Custo do ano anterior registrado na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última alteração do registro."
