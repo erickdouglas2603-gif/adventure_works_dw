@@ -274,3 +274,46 @@ models:
 
       - name: order_modified_date
         description: "Data da última modificação do pedido."
+
+  - name: int_dimensao_motivos
+    description: "Modelo intermediário dos motivos de venda, preparando a entidade para consumo pela dimensão de motivos."
+
+    columns:
+
+      - name: PK_sales_reason
+        description: "Identificador único do motivo de venda."
+        tests:
+          - not_null
+          - unique
+
+      - name: reason_name
+        description: "Nome do motivo de venda."
+
+      - name: reason_type
+        description: "Tipo ou categoria do motivo de venda."
+
+      - name: modified_date
+        description: "Data da última alteração do registro."
+  
+  - name: int_pedidos_motivos
+    description: "Relacionamento entre pedidos e motivos de venda. Cada linha representa uma associação entre um pedido e um motivo."
+
+    columns:
+
+      - name: FK_sales_order
+        description: "Identificador do pedido associado ao motivo."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesorderheader')
+                field: PK_sales_order
+
+      - name: FK_sales_reason
+        description: "Identificador do motivo de venda associado ao pedido."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_reason')
+                field: PK_sales_reason

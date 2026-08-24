@@ -19,3 +19,4 @@ renomeado AS (
 SELECT *
 FROM renomeado
 
+

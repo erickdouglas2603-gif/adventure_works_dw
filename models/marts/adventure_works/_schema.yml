@@ -207,14 +207,53 @@ models:
       - name: unit_price_discount
         description: "Desconto unitário aplicado ao item."
 
-      - name: subtotal
-        description: "Subtotal registrado no pedido."
+  - name: dim_motivos
+    description: "Dimensão de motivos de venda da Adventure Works. Cada linha representa um motivo de venda."
 
-      - name: tax_amt
-        description: "Valor de imposto registrado no pedido."
+    columns:
 
-      - name: freight
-        description: "Valor de frete registrado no pedido."
+      - name: PK_sales_reason
+        description: "Identificador único do motivo de venda."
+        tests:
+          - not_null
+          - unique
 
-      - name: total_due
-        description: "Valor total devido registrado no pedido."
+      - name: reason_name
+        description: "Nome do motivo de venda."
+
+      - name: reason_type
+        description: "Tipo ou categoria do motivo de venda."
+
+      - name: modified_date
+        description: "Data da última alteração do registro."
+
+  - name: dim_cartoes
+    description: >
+      Dimensão de cartões de crédito da Adventure Works.
+
+      Grain: uma linha por cartão de crédito cadastrado na origem.
+      A dimensão fornece atributos descritivos dos cartões utilizados
+      nas vendas, permitindo análises como faturamento por tipo de cartão.
+
+    columns:
+
+      - name: PK_credit_card
+        description: "Identificador único do cartão de crédito."
+        tests:
+          - not_null
+          - unique
+
+      - name: card_type
+        description: "Tipo ou emissor do cartão de crédito."
+
+      - name: card_number
+        description: "Número do cartão de crédito."
+
+      - name: exp_month
+        description: "Mês de expiração do cartão."
+
+      - name: exp_year
+        description: "Ano de expiração do cartão."
+
+      - name: modified_date
+        description: "Data da última alteração do registro na origem."
