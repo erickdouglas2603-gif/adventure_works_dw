@@ -652,3 +652,84 @@ models:
 
       - name: modified_date
         description: "Data da última alteração do registro na origem."
+  
+  - name: stg_adventure_works__sales_salesterritory
+    description: "Staging da tabela SalesTerritory da Adventure Works."
+
+    columns:
+
+      - name: PK_territory
+        description: "Identificador único do território de vendas."
+        tests:
+          - not_null
+          - unique
+
+      - name: territory_name
+        description: "Nome do território de vendas."
+
+      - name: country_region_code
+        description: "Código do país ou região associado ao território."
+
+      - name: territory_group
+        description: "Grupo geográfico ao qual o território pertence."
+
+      - name: sales_ytd
+        description: "Valor de vendas acumulado no ano registrado na origem."
+
+      - name: sales_last_year
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: cost_ytd
+        description: "Custo acumulado no ano registrado na origem."
+
+      - name: cost_last_year
+        description: "Custo do ano anterior registrado na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última alteração do registro."
+    
+  - name: stg_adventure_works__sales_salesperson
+    description: >
+      Staging da tabela SalesPerson da Adventure Works.
+      Representa os vendedores cadastrados e suas informações comerciais,
+      incluindo o território associado e indicadores de vendas e comissão.
+
+    columns:
+
+      - name: PK_sales_person
+        description: "Identificador único do vendedor."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_territory
+        description: "Identificador do território associado ao vendedor."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesterritory')
+                field: PK_territory
+
+      - name: sales_quota
+        description: "Meta de vendas atribuída ao vendedor."
+
+      - name: bonus
+        description: "Valor de bônus associado ao vendedor."
+
+      - name: commission_pct
+        description: "Percentual de comissão do vendedor."
+
+      - name: sales_ytd
+        description: "Valor acumulado de vendas no ano."
+
+      - name: sales_last_year
+        description: "Valor de vendas registrado no ano anterior."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: modified_date
+        description: "Data da última modificação do registro."
