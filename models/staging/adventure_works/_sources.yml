@@ -21,7 +21,7 @@ sources:
       - name: sales_specialoffer
       - name: sales_creditcard
       - name: sales_currencyrate
-      - name: sales_reason
+      - name: sales_salesreason
       - name: sales_salesorderheadersalesreason
 
       - name: person_person
