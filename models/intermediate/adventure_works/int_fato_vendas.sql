@@ -54,7 +54,8 @@ vendas_enriquecidas AS (
         , d.orderqty
         , d.unit_price
         , d.unit_price_discount
-
+        , d.orderqty * d.unit_price AS negotiated_value
+        , d.orderqty * d.unit_price * (1 - d.unit_price_discount ) AS net_traded_value
         , d.rowguid AS detail_rowguid
         , d.modified_date AS detail_modified_date
 
@@ -68,7 +69,5 @@ vendas_enriquecidas AS (
 
 )
 
-SELECT *
+SELECT * 
 FROM vendas_enriquecidas
-
-

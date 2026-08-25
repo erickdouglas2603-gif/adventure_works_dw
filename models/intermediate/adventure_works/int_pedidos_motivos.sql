@@ -10,3 +10,4 @@ SELECT
     , FK_sales_reason
 
 FROM sales_order_header_sales_reason
+
