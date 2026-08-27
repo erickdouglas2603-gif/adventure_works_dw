@@ -6,16 +6,18 @@ WITH territorios AS (
 )
 
 SELECT
-    PK_territory
-    , territory_name
-    , country_region_code
-    , territory_group
-    , sales_ytd
-    , sales_last_year
-    , cost_ytd
-    , cost_last_year
-    , rowguid
-    , modified_date
+    PK_territorio
+
+    , FK_pais_regiao
+
+    , data_modificacao
+
+    , nome_territorio
+    , grupo_territorio
+
+    , vendas_acumuladas_ano
+    , vendas_ano_anterior
+    , custo_acumulado_ano
+    , custo_ano_anterior
 
 FROM territorios
-

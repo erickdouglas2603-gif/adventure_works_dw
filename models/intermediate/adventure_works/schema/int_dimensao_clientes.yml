@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: int_dimensao_clientes
+    description: >
+      Modelo intermediário da dimensão de clientes.
+      Consolida clientes pessoa e clientes loja em uma única entidade.
+
+      Grain: uma linha por cliente.
+
+    columns:
+
+      - name: PK_cliente
+        description: "Identificador único do cliente."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_pessoa
+        description: "Identificador da pessoa associada ao cliente. Pode ser nulo para clientes loja."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_person')
+                field: PK_entidade_negocio
+
+      - name: nome_cliente
+        description: "Nome do cliente, obtido da pessoa ou da loja."
+
+      - name: sufixo
+        description: "Sufixo do nome da pessoa, quando aplicável."
+
+      - name: FK_loja
+        description: "Identificador da loja associada ao cliente. Pode ser nulo para clientes pessoa."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_store')
+                field: PK_loja
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao cliente."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesterritory')
+                field: PK_territorio
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: data_modificacao
+        description: "Data da última alteração do registro."

@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: int_dimensao_enderecos
+    description: >
+      Modelo intermediário da dimensão de endereços.
+      Enriquece os endereços com informações do estado ou província
+      e do país ou região.
+
+      Grain: uma linha por endereço.
+
+    columns:
+
+      - name: PK_endereco
+        description: "Identificador único do endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_estado_provincia
+        description: "Identificador do estado ou província associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_stateprovince')
+                field: PK_estado_provincia
+
+      - name: FK_pais_regiao
+        description: "Identificador do país ou região associado ao estado ou província."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_countryregion')
+                field: PK_pais_regiao
+
+      - name: endereco_linha_1
+        description: "Primeira linha do endereço."
+
+      - name: endereco_linha_2
+        description: "Segunda linha do endereço. Pode ser nula."
+
+      - name: cidade
+        description: "Cidade do endereço."
+
+      - name: codigo_postal
+        description: "Código postal do endereço."
+
+      - name: codigo_estado_provincia
+        description: "Código do estado ou província."
+
+      - name: nome_estado_provincia
+        description: "Nome do estado ou província."
+
+      - name: nome_pais_regiao
+        description: "Nome do país ou região."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: data_modificacao
+        description: "Data da última alteração do endereço."

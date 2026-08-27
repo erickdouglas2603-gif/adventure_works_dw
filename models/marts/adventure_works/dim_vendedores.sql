@@ -1,18 +1,25 @@
 WITH vendedores AS (
 
-    SELECT
-        PK_sales_person
-        , FK_territory
-        , sales_quota
-        , bonus
-        , commission_pct
-        , sales_ytd
-        , sales_last_year
-       
-
+    SELECT *
     FROM {{ ref('int_dimensao_vendedores') }}
 
 )
 
-SELECT *
+SELECT
+
+    -- PK
+    PK_vendedor
+
+    -- FK
+    , FK_territorio
+
+    -- Atributos / medidas
+    , meta_vendas
+    , bonus
+    , percentual_comissao
+    , vendas_acumuladas_ano
+    , vendas_ano_anterior
+
+    , data_modificacao
+
 FROM vendedores

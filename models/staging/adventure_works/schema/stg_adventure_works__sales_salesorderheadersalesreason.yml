@@ -1,0 +1,31 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_salesorderheadersalesreason
+    description: >
+      Staging da tabela associativa entre pedidos e motivos de venda.
+      Grain: uma linha por associação entre pedido e motivo de venda.
+
+    columns:
+
+      - name: FK_pedido
+        description: "Identificador do pedido."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesorderheader')
+                field: PK_pedido
+
+      - name: FK_motivo_venda
+        description: "Identificador do motivo associado ao pedido."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesreason')
+                field: PK_motivo_venda
+
+      - name: data_modificacao
+        description: "Data da última modificação da associação na origem."

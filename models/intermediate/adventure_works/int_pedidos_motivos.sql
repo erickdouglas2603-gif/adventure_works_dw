@@ -1,4 +1,4 @@
-WITH sales_order_header_sales_reason AS (
+WITH pedidos_motivos_fonte AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_salesorderheadersalesreason') }}
@@ -6,8 +6,7 @@ WITH sales_order_header_sales_reason AS (
 )
 
 SELECT
-    FK_sales_order
-    , FK_sales_reason
+    FK_pedido
+    , FK_motivo_venda
 
-FROM sales_order_header_sales_reason
-
+FROM pedidos_motivos_fonte

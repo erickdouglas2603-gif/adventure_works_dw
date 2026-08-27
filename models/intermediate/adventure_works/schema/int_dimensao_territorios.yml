@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: int_dimensao_territorios
+    description: >
+      Modelo intermediário da dimensão de territórios de vendas.
+
+      Grain: uma linha por território.
+
+    columns:
+
+      - name: PK_territorio
+        description: "Identificador único do território."
+        tests:
+          - not_null
+          - unique
+
+      - name: nome_territorio
+        description: "Nome do território de vendas."
+
+      - name: codigo_pais_regiao
+        description: "Código do país ou região associado ao território."
+
+      - name: grupo_territorio
+        description: "Grupo geográfico ao qual o território pertence."
+
+      - name: vendas_acumuladas_ano
+        description: "Valor de vendas acumulado no ano registrado na origem."
+
+      - name: vendas_ano_anterior
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: custo_acumulado_ano
+        description: "Custo acumulado no ano registrado na origem."
+
+      - name: custo_ano_anterior
+        description: "Custo do ano anterior registrado na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: data_modificacao
+        description: "Data da última alteração do registro."

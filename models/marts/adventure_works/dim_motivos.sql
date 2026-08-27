@@ -1,4 +1,4 @@
-WITH int_motivos AS (
+WITH motivos AS (
 
     SELECT *
     FROM {{ ref('int_dimensao_motivos') }}
@@ -6,9 +6,11 @@ WITH int_motivos AS (
 )
 
 SELECT
-      PK_sales_reason
-    , reason_name
-    , reason_type
-    , modified_date
+    PK_motivo_venda
 
-FROM int_motivos
+    , nome_motivo
+    , tipo_motivo
+
+    , data_modificacao
+
+FROM motivos

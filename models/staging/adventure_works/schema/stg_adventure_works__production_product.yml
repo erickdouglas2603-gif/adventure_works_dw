@@ -1,0 +1,98 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__production_product
+    description: >
+      Staging da tabela de produtos da Adventure Works.
+      Grain: uma linha por produto.
+
+    columns:
+
+      - name: PK_produto
+        description: "Identificador único do produto."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_subcategoria_produto
+        description: "Identificador da subcategoria do produto."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_productsubcategory')
+                field: PK_subcategoria_produto
+
+      - name: FK_modelo_produto
+        description: "Identificador do modelo associado ao produto."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_productmodel')
+                field: PK_modelo_produto
+
+      - name: data_inicio_venda
+        description: "Data a partir da qual o produto começou a ser vendido."
+
+      - name: data_fim_venda
+        description: "Data final de venda do produto, quando informada."
+
+      - name: data_descontinuacao
+        description: "Data em que o produto foi descontinuado, quando informada."
+
+      - name: data_modificacao
+        description: "Data da última modificação do produto na origem."
+
+      - name: nome_produto
+        description: "Nome do produto."
+
+      - name: numero_produto
+        description: "Número ou código comercial do produto."
+
+      - name: indicador_fabricacao
+        description: "Indica se o produto é fabricado pela empresa."
+
+      - name: indicador_produto_acabado
+        description: "Indica se o produto é considerado um produto acabado."
+
+      - name: cor
+        description: "Cor do produto."
+
+      - name: tamanho_produto
+        description: "Tamanho do produto."
+
+      - name: codigo_unidade_tamanho
+        description: "Código da unidade de medida utilizada para o tamanho."
+
+      - name: codigo_unidade_peso
+        description: "Código da unidade de medida utilizada para o peso."
+
+      - name: linha_produto
+        description: "Linha à qual o produto pertence."
+
+      - name: classe
+        description: "Classe do produto."
+
+      - name: estilo
+        description: "Estilo do produto."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: estoque_seguranca
+        description: "Quantidade mínima de estoque de segurança."
+
+      - name: ponto_reposicao
+        description: "Ponto de reposição do estoque."
+
+      - name: custo_padrao
+        description: "Custo padrão do produto."
+
+      - name: preco_lista
+        description: "Preço de lista do produto."
+
+      - name: peso_produto
+        description: "Peso do produto."
+
+      - name: dias_fabricacao
+        description: "Quantidade de dias necessários para fabricação."

@@ -1,0 +1,40 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__person_person
+    description: >
+      Staging da tabela de pessoas da Adventure Works.
+      Grain: uma linha por pessoa.
+
+    columns:
+
+      - name: PK_entidade_negocio
+        description: "Identificador único da entidade de negócio associada à pessoa."
+        tests:
+          - not_null
+          - unique
+
+      - name: data_modificacao
+        description: "Data da última modificação do registro na origem."
+
+      - name: tipo_pessoa
+        description: "Código que identifica o tipo de pessoa."
+
+      - name: estilo_nome
+        description: "Indica se o nome segue o padrão de estilo definido pela origem."
+
+      - name: titulo
+        description: "Título associado à pessoa, quando informado."
+
+      - name: sufixo
+        description: "Sufixo associado ao nome da pessoa, quando informado."
+
+      - name: nome_pessoa
+        description: "Nome completo da pessoa, composto a partir de nome, nome do meio e sobrenome."
+
+      - name: promocao_email
+        description: "Indicador relacionado à promoção por e-mail."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

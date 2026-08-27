@@ -8,16 +8,16 @@ WITH fonte_sales_salesterritory AS (
 , renomeado AS (
 
     SELECT
-        CAST(territoryid AS INT)                    AS PK_territory
-        , CAST(name AS STRING)                      AS territory_name
-        , CAST(countryregioncode AS STRING)         AS country_region_code
-        , CAST(`group` AS STRING)                   AS territory_group
-        , CAST(salesytd AS NUMERIC(28,2))           AS sales_ytd
-        , CAST(saleslastyear AS NUMERIC(28,2))      AS sales_last_year
-        , CAST(costytd AS NUMERIC(28,2))            AS cost_ytd
-        , CAST(costlastyear AS NUMERIC(28,2))       AS cost_last_year
-        , CAST(rowguid AS STRING)                   AS rowguid
-        , CAST(modifieddate AS DATE)                AS modified_date
+        CAST(territoryid AS INT)                        AS PK_territorio
+        , CAST(countryregioncode AS STRING)             AS FK_pais_regiao
+        , CAST(modifieddate AS DATE)                    AS data_modificacao
+        , CAST(name AS STRING)                          AS nome_territorio
+        , CAST(`group` AS STRING)                       AS grupo_territorio
+        , CAST(salesytd AS NUMERIC(28,2))               AS vendas_acumuladas_ano
+        , CAST(saleslastyear AS NUMERIC(28,2))          AS vendas_ano_anterior
+        , CAST(costytd AS NUMERIC(28,2))                AS custo_acumulado_ano
+        , CAST(costlastyear AS NUMERIC(28,2))           AS custo_ano_anterior
+        , CAST(rowguid AS STRING)                       AS rowguid
 
     FROM fonte_sales_salesterritory
 
@@ -25,4 +25,3 @@ WITH fonte_sales_salesterritory AS (
 
 SELECT *
 FROM renomeado
-

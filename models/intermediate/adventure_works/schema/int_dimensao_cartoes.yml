@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: int_dimensao_cartoes
+    description: >
+      Modelo intermediário da dimensão de cartões de crédito.
+      Mantém os atributos cadastrais dos cartões utilizados nas vendas.
+
+      Grain: uma linha por cartão de crédito.
+
+    columns:
+
+      - name: PK_cartao_credito
+        description: "Identificador único do cartão de crédito."
+        tests:
+          - not_null
+          - unique
+
+      - name: tipo_cartao
+        description: "Tipo ou emissor do cartão de crédito."
+
+      - name: numero_cartao
+        description: "Número do cartão de crédito."
+
+      - name: mes_expiracao
+        description: "Mês de expiração do cartão."
+
+      - name: ano_expiracao
+        description: "Ano de expiração do cartão."
+
+      - name: data_modificacao
+        description: "Data da última alteração do registro."
+
+
+        

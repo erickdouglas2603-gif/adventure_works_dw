@@ -1,0 +1,22 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__person_countryregion
+    description: >
+      Staging da tabela de países e regiões da Adventure Works.
+      Grain: uma linha por país ou região.
+
+    columns:
+
+      - name: PK_pais_regiao
+        description: "Código único do país ou região."
+        tests:
+          
+          - unique
+
+      - name: data_modificacao
+        description: "Data da última modificação do registro na origem."
+
+      - name: nome_pais_regiao
+        description: "Nome do país ou região."

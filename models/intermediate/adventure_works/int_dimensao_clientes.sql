@@ -1,53 +1,48 @@
-WITH sales_customer AS (
+WITH clientes_fonte AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_customer') }}
 
-),
+)
 
-person_person AS (
+, pessoas AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__person_person') }}
 
-),
+)
 
-sales_store AS (
+, lojas AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_store') }}
 
-),
+)
 
-clientes_enriquecidos AS (
+, clientes_enriquecidos AS (
 
     SELECT
-        c.PK_customer
-        , c.FK_person
-
+        c.PK_cliente
+        , c.FK_pessoa
+        , c.FK_loja
+        , c.FK_territorio
         , COALESCE(
-            p.person_name
-            , s.store_name
-        ) AS customer_name
+            p.nome_pessoa
+            , s.nome_loja
+        ) AS nome_cliente
+        , p.sufixo
+        , c.data_modificacao
 
-        , p.suffix
 
-        , c.FK_store
-        , c.FK_territory
+    FROM clientes_fonte c
 
-        , c.rowguid
-        , c.modified_date
+    LEFT JOIN pessoas p
+        ON c.FK_pessoa = p.PK_entidade_negocio
 
-    FROM sales_customer c
-
-    LEFT JOIN person_person p
-        ON c.FK_person = p.PK_business_entity
-
-    LEFT JOIN sales_store s
-        ON c.FK_store = s.PK_sales_store
+    LEFT JOIN lojas s
+        ON c.FK_loja = s.PK_loja
 
 )
 
 SELECT *
 FROM clientes_enriquecidos
-order by PK_customer desc

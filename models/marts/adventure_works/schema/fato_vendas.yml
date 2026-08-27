@@ -1,0 +1,150 @@
+version: 2
+
+models:
+
+  - name: fato_vendas
+    description: >
+      Fato de vendas da Adventure Works.
+
+      Grain: uma linha por item de pedido.
+
+      Cada registro representa um item vendido em um pedido,
+      contendo as chaves de relacionamento com as dimensões,
+      atributos do pedido e métricas financeiras da venda.
+
+    columns:
+
+      - name: PK_item_pedido
+        description: "Identificador único do item do pedido. Define o grain da fato."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_pedido
+        description: "Identificador do pedido ao qual o item pertence."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('int_fato_vendas')
+                field: FK_pedido
+
+      - name: FK_produto
+        description: "Identificador do produto vendido."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_produtos')
+                field: PK_produto
+
+      - name: FK_oferta_especial
+        description: "Identificador da oferta especial aplicada ao item."
+
+      - name: FK_cliente
+        description: "Identificador do cliente responsável pela compra."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_clientes')
+                field: PK_cliente
+
+      - name: FK_vendedor
+        description: "Identificador do vendedor associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_vendedores')
+                field: PK_vendedor
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_territorios')
+                field: PK_territorio
+
+      - name: FK_endereco_cobranca
+        description: "Identificador do endereço utilizado para cobrança."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_enderecos')
+                field: PK_endereco
+
+      - name: FK_endereco_entrega
+        description: "Identificador do endereço utilizado para entrega."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_enderecos')
+                field: PK_endereco
+
+      - name: FK_metodo_envio
+        description: "Identificador do método de envio utilizado no pedido."
+
+      - name: FK_cartao_credito
+        description: "Identificador do cartão de crédito utilizado no pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cartoes')
+                field: PK_cartao_credito
+
+      - name: FK_taxa_cambio
+        description: "Identificador da taxa de câmbio utilizada no pedido."
+
+      - name: data_pedido
+        description: "Data em que o pedido foi realizado."
+
+      - name: data_vencimento
+        description: "Data prevista para vencimento ou entrega do pedido."
+
+      - name: data_envio
+        description: "Data em que o pedido foi enviado."
+
+      - name: numero_revisao
+        description: "Número da revisão do pedido."
+
+      - name: status_pedido
+        description: "Status do pedido."
+
+      - name: indicador_pedido_online
+        description: "Indica se o pedido foi realizado online."
+
+      - name: numero_pedido_compra
+        description: "Número do pedido de compra informado pelo cliente."
+
+      - name: numero_conta
+        description: "Número da conta associada ao cliente."
+
+      - name: codigo_aprovacao_cartao
+        description: "Código de aprovação da transação do cartão."
+
+      - name: comentario_pedido
+        description: "Comentário associado ao pedido."
+
+      - name: numero_rastreamento
+        description: "Número de rastreamento associado ao item enviado."
+
+      - name: quantidade_pedida
+        description: "Quantidade de unidades vendidas no item."
+
+      - name: preco_unitario
+        description: "Preço unitário do produto no item do pedido."
+
+      - name: desconto_preco_unitario
+        description: "Percentual de desconto aplicado ao preço unitário."
+
+      - name: valor_negociado
+        description: >
+          Valor bruto negociado do item, calculado como
+          quantidade_pedida multiplicada pelo preco_unitario.
+
+      - name: valor_liquido_negociado
+        description: >
+          Valor do item após aplicação do desconto,
+          calculado como quantidade_pedida multiplicada pelo
+          preco_unitario e pelo fator (1 - desconto_preco_unitario).

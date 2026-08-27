@@ -1,0 +1,57 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_salesorderdetail
+    description: >
+      Staging dos itens dos pedidos de venda da Adventure Works.
+      Grain: uma linha por item de pedido.
+
+    columns:
+
+      - name: PK_item_pedido
+        description: "Identificador único do item do pedido."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_pedido
+        description: "Identificador do pedido ao qual o item pertence."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesorderheader')
+                field: PK_pedido
+
+      - name: FK_produto
+        description: "Identificador do produto vendido."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_product')
+                field: PK_produto
+
+      - name: FK_oferta_especial
+        description: "Identificador da oferta especial associada ao item."
+
+      - name: data_modificacao
+        description: "Data da última modificação do item na origem."
+
+      - name: numero_rastreamento
+        description: "Número de rastreamento da entrega do item."
+
+      - name: quantidade_pedida
+        description: "Quantidade de unidades registrada no item do pedido."
+
+      - name: preco_unitario
+        description: "Preço unitário registrado para o produto no item."
+
+      - name: desconto_preco_unitario
+        description: >
+          Desconto aplicado ao preço unitário do item,
+          armazenado como proporção decimal.
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

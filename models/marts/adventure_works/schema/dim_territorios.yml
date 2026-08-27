@@ -1,0 +1,44 @@
+version: 2
+
+models:
+
+  - name: dim_territorios
+    description: >
+      Dimensão de territórios de vendas da Adventure Works.
+
+      Grain: uma linha por território.
+
+      Contém informações geográficas e indicadores comerciais
+      associados aos territórios de vendas.
+
+    columns:
+
+      - name: PK_territorio
+        description: "Identificador único do território."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_pais_regiao
+        description: "Código do país ou região associado ao território."
+
+      - name: data_modificacao
+        description: "Data da última modificação do território."
+
+      - name: nome_territorio
+        description: "Nome do território de vendas."
+
+      - name: grupo_territorio
+        description: "Grupo geográfico ao qual o território pertence."
+
+      - name: vendas_acumuladas_ano
+        description: "Valor de vendas acumulado no ano registrado na origem."
+
+      - name: vendas_ano_anterior
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: custo_acumulado_ano
+        description: "Custo acumulado no ano registrado na origem."
+
+      - name: custo_ano_anterior
+        description: "Custo registrado no ano anterior."

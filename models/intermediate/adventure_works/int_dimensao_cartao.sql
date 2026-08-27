@@ -1,4 +1,4 @@
-WITH sales_credit_card AS (
+WITH cartoes_fonte AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_creditcard') }}
@@ -8,17 +8,16 @@ WITH sales_credit_card AS (
 , cartoes AS (
 
     SELECT
-        PK_credit_card
-        , card_type
-        , card_number
-        , exp_month
-        , exp_year
-        , modified_date
+        PK_cartao_credito        
+        , tipo_cartao
+        , numero_cartao
+        , mes_expiracao
+        , ano_expiracao
+        , data_modificacao
 
-    FROM sales_credit_card
+    FROM cartoes_fonte
 
 )
 
 SELECT *
 FROM cartoes
-

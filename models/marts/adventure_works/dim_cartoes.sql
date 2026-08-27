@@ -1,4 +1,4 @@
-WITH int_dimensao_cartao AS (
+WITH cartoes AS (
 
     SELECT *
     FROM {{ ref('int_dimensao_cartao') }}
@@ -6,11 +6,13 @@ WITH int_dimensao_cartao AS (
 )
 
 SELECT
-    PK_credit_card
-    , card_type
-    , card_number
-    , exp_month
-    , exp_year
-    , modified_date
+    PK_cartao_credito
 
-FROM int_dimensao_cartao
+    , tipo_cartao
+    , numero_cartao
+    , mes_expiracao
+    , ano_expiracao
+
+    , data_modificacao
+
+FROM cartoes

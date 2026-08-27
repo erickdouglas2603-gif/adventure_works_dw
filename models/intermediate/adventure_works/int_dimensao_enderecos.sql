@@ -1,54 +1,52 @@
-WITH person_address AS (
+WITH enderecos_fonte AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__person_address') }}
 
-),
+)
 
-person_stateprovince AS (
+, estados AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__person_stateprovince') }}
 
-),
+)
 
-person_countryregion AS (
+, paises AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__person_countryregion') }}
 
-),
+)
 
-enderecos_enriquecidos AS (
+, enderecos_enriquecidos AS (
 
     SELECT
-        a.PK_address
+        a.PK_endereco
 
-        , a.address_line_1
-        , a.address_line_2
-        , a.city
-        , a.postal_code
+        , a.FK_estado_provincia
+        , sp.FK_pais_regiao
+        , a.linha_endereco_1
+        , a.linha_endereco_2
+        , a.cidade
+        , a.codigo_postal
+        , sp.codigo_estado_provincia
+        , sp.nome_estado_provincia
+        , cr.nome_pais_regiao
+        , a.localizacao_espacial
+        , a.data_modificacao
 
-        , a.FK_state_province
-        , sp.state_province_code
-        , sp.state_province_name
+    FROM enderecos_fonte a
 
-        , sp.FK_country_region
-        , cr.country_region_name
+    LEFT JOIN estados sp
+        ON a.FK_estado_provincia = sp.PK_estado_provincia
 
-        , a.rowguid
-        , a.modified_date
-
-    FROM person_address a
-
-    LEFT JOIN person_stateprovince sp
-        ON a.FK_state_province = sp.PK_state_province
-
-    LEFT JOIN person_countryregion cr
-        ON sp.FK_country_region = cr.PK_country_region
+    LEFT JOIN paises cr
+        ON sp.FK_pais_regiao = cr.PK_pais_regiao
 
 )
 
 SELECT *
 FROM enderecos_enriquecidos
+
 

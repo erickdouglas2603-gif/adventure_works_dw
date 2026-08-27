@@ -8,14 +8,16 @@ WITH fonte_person_stateprovince AS (
 , renomeado AS (
 
     SELECT
-        CAST(stateprovinceid AS INT)                 AS PK_state_province
-        , CAST(stateprovincecode AS STRING)          AS state_province_code
-        , CAST(countryregioncode AS STRING)          AS FK_country_region
-        , CAST(isonlystateprovinceflag AS BOOLEAN)   AS is_only_state_province
-        , CAST(name AS STRING)                       AS state_province_name
-        , CAST(territoryid AS INT)                   AS FK_territory
-        , CAST(rowguid AS STRING)                    AS rowguid
-        , CAST(modifieddate AS DATE)                 AS modified_date
+        CAST(stateprovinceid AS INT)                AS PK_estado_provincia
+        , CAST(countryregioncode AS STRING)         AS FK_pais_regiao
+        , CAST(territoryid AS INT)                  AS FK_territorio
+
+        , CAST(modifieddate AS DATE)                AS data_modificacao
+
+        , CAST(stateprovincecode AS STRING)         AS codigo_estado_provincia
+        , CAST(isonlystateprovinceflag AS BOOLEAN)  AS somente_estado_provincia
+        , CAST(name AS STRING)                      AS nome_estado_provincia
+        , CAST(rowguid AS STRING)                   AS rowguid
 
     FROM fonte_person_stateprovince
 

@@ -1,4 +1,4 @@
-WITH int_clientes AS (
+WITH clientes AS (
 
     SELECT *
     FROM {{ ref('int_dimensao_clientes') }}
@@ -6,14 +6,15 @@ WITH int_clientes AS (
 )
 
 SELECT
-    PK_customer
-    , FK_person
-    , customer_name
-    , suffix
-    , FK_store
-    , FK_territory
+    PK_cliente
 
+    , FK_pessoa
+    , FK_loja
+    , FK_territorio
 
-FROM int_clientes
-order by PK_customer asc
+    , nome_cliente
+    , sufixo
 
+    , data_modificacao
+
+FROM clientes

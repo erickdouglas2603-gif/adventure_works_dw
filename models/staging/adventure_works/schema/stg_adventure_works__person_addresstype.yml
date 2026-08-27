@@ -1,0 +1,25 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__person_addresstype
+    description: >
+      Staging da tabela de tipos de endereço da Adventure Works.
+      Grain: uma linha por tipo de endereço.
+
+    columns:
+
+      - name: PK_tipo_endereco
+        description: "Identificador único do tipo de endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: data_modificacao
+        description: "Data da última modificação do registro na origem."
+
+      - name: nome_tipo_endereco
+        description: "Nome do tipo de endereço."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

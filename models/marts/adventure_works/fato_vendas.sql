@@ -1,38 +1,50 @@
-WITH int_fato_vendas AS (
+WITH vendas AS (
 
     SELECT *
     FROM {{ ref('int_fato_vendas') }}
 
 )
 
-SELECT 
-      PK_sales_order_detail
-      , FK_sales_order
-      , FK_product
-      , FK_special_offer
-      , FK_customer
-      , FK_sales_person
-      , FK_territory
-      , FK_bill_to_address
-      , FK_ship_to_address
-      , FK_ship_method
-      , FK_credit_card
-      , revision_number
-      , order_date
-      , due_date
-      , ship_date
-      , status_order
-      , online_order_flag
-      , purchase_order_number
-      , account_number
-      , credit_card_approval_code
-      , FK_currency_rate
+SELECT
 
-      , order_comment
-      , carrier_tracking_number
-      , orderqty
-      , unit_price
-      , unit_price_discount
+    -- PK
+    PK_item_pedido
 
-FROM int_fato_vendas
+    -- FKs
+    , FK_pedido
+    , FK_produto
+    , FK_oferta_especial
+    , FK_cliente
+    , FK_vendedor
+    , FK_territorio
+    , FK_endereco_cobranca
+    , FK_endereco_entrega
+    , FK_metodo_envio
+    , FK_cartao_credito
+    , FK_taxa_cambio
 
+    -- Datas
+    , data_pedido
+    , data_vencimento
+    , data_envio
+
+    -- Atributos do pedido
+    , numero_revisao
+    , status_pedido
+    , indicador_pedido_online
+    , numero_pedido_compra
+    , numero_conta
+    , codigo_aprovacao_cartao
+    , comentario_pedido
+
+    -- Atributos do item
+    , numero_rastreamento
+
+    -- Medidas
+    , quantidade_pedida
+    , preco_unitario
+    , desconto_preco_unitario
+    , valor_negociado
+    , valor_liquido_negociado
+
+FROM vendas

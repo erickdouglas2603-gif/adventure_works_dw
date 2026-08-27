@@ -1,0 +1,98 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_salesorderheader
+    description: >
+      Staging dos cabeçalhos dos pedidos de venda da Adventure Works.
+      Grain: uma linha por pedido.
+
+    columns:
+
+      - name: PK_pedido
+        description: "Identificador único do pedido."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_cliente
+        description: "Identificador do cliente associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_customer')
+                field: PK_cliente
+
+      - name: FK_vendedor
+        description: "Identificador do vendedor associado ao pedido."
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesterritory')
+                field: PK_territorio
+
+      - name: FK_endereco_cobranca
+        description: "Identificador do endereço utilizado para cobrança."
+
+      - name: FK_endereco_entrega
+        description: "Identificador do endereço utilizado para entrega."
+
+      - name: FK_metodo_envio
+        description: "Identificador do método de envio utilizado."
+
+      - name: FK_cartao_credito
+        description: "Identificador do cartão de crédito utilizado."
+
+      - name: FK_taxa_cambio
+        description: "Identificador da taxa de câmbio associada ao pedido."
+
+      - name: data_pedido
+        description: "Data em que o pedido foi realizado."
+
+      - name: data_vencimento
+        description: "Data prevista para entrega ou vencimento do pedido."
+
+      - name: data_envio
+        description: "Data em que o pedido foi enviado."
+
+      - name: data_modificacao
+        description: "Data da última modificação do pedido na origem."
+
+      - name: numero_revisao
+        description: "Número da revisão do pedido."
+
+      - name: status_pedido
+        description: "Status do pedido."
+
+      - name: indicador_pedido_online
+        description: "Indica se o pedido foi realizado online."
+
+      - name: numero_pedido_compra
+        description: "Número do pedido de compra informado pelo cliente."
+
+      - name: numero_conta
+        description: "Número da conta associada ao pedido."
+
+      - name: codigo_aprovacao_cartao
+        description: "Código de aprovação da transação do cartão."
+
+      - name: comentario_pedido
+        description: "Comentário associado ao pedido."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: subtotal
+        description: "Subtotal registrado no pedido."
+
+      - name: valor_imposto
+        description: "Valor de imposto registrado no pedido."
+
+      - name: frete
+        description: "Valor de frete registrado no pedido."
+
+      - name: valor_total_devido
+        description: "Valor total devido registrado no pedido."

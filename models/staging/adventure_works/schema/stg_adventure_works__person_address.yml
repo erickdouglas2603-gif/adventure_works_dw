@@ -1,0 +1,45 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__person_address
+    description: >
+      Staging da tabela de endereços da Adventure Works.
+      Grain: uma linha por endereço.
+
+    columns:
+
+      - name: PK_endereco
+        description: "Identificador único do endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_estado_provincia
+        description: "Identificador do estado ou província associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_stateprovince')
+                field: PK_estado_provincia
+
+      - name: data_modificacao
+        description: "Data da última modificação do endereço na origem."
+
+      - name: linha_endereco_1
+        description: "Primeira linha do endereço."
+
+      - name: linha_endereco_2
+        description: "Segunda linha do endereço. Pode ser nula."
+
+      - name: cidade
+        description: "Cidade associada ao endereço."
+
+      - name: codigo_postal
+        description: "Código postal do endereço."
+
+      - name: localizacao_espacial
+        description: "Localização espacial do endereço na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
