@@ -1,38 +1,44 @@
-with fonte_sales_salesorderheader as (
+WITH fonte_sales_salesorderheader AS (
 
     SELECT *
     FROM {{ source('adventure_works', 'sales_salesorderheader') }}
 
 )
 
-,renomeado as (
+, renomeado AS (
 
     SELECT
-        cast(salesorderid as int)                           AS PK_sales_order
-        , cast(customerid as int)                           AS FK_customer
-        , cast(salespersonid as int)                        AS FK_sales_person
-        , cast(territoryid as int)                          AS FK_territory
-        , cast(billtoaddressid as int)                      AS FK_bill_to_address
-        , cast(shiptoaddressid as int)                      AS FK_ship_to_address
-        , cast(shipmethodid as int)                         AS FK_ship_method
-        , cast(creditcardid as int)                         AS FK_credit_card
-        , CAST(currencyrateid AS INT)                       AS FK_currency_rate
-        , cast(revisionnumber as int)                       AS revision_number
-        , cast(orderdate as date)                           AS order_date
-        , cast(duedate as date)                             AS due_date
-        , cast(shipdate as date)                            AS ship_date
-        , cast(status as int)                               AS status_order
-        , cast(onlineorderflag as boolean)                  AS online_order_flag
-        , purchaseordernumber                               AS purchase_order_number
-        , REGEXP_REPLACE(accountnumber, '[^a-zA-Z0-9]', '') AS account_number
-        , cast(creditcardapprovalcode as string)            AS credit_card_approval_code
-        , CAST(subtotal as numeric(28,4))                   AS subtotal
-        , CAST(taxamt as numeric(28,4))                     AS tax_amt
-        , CAST(freight as numeric(28,4))                    AS freight
-        , CAST(totaldue as numeric(28,4))                   AS total_due
-        , cast(comment as string)                           AS order_comment
-        , rowguid                                           AS rowguid
-        , cast(modifieddate as date)                        AS modified_date
+        CAST(salesorderid AS INT)                               AS PK_pedido
+        , CAST(customerid AS INT)                               AS FK_cliente
+        , CAST(salespersonid AS INT)                            AS FK_vendedor
+        , CAST(territoryid AS INT)                              AS FK_territorio
+        , CAST(billtoaddressid AS INT)                          AS FK_endereco_cobranca
+        , CAST(shiptoaddressid AS INT)                          AS FK_endereco_entrega
+        , CAST(shipmethodid AS INT)                             AS FK_metodo_envio
+        , CAST(creditcardid AS INT)                             AS FK_cartao_credito
+        , CAST(currencyrateid AS INT)                           AS FK_taxa_cambio
+
+        , CAST(orderdate AS DATE)                               AS data_pedido
+        , CAST(duedate AS DATE)                                 AS data_vencimento
+        , CAST(shipdate AS DATE)                                AS data_envio
+        , CAST(modifieddate AS DATE)                            AS data_modificacao
+
+        , CAST(revisionnumber AS INT)                           AS numero_revisao
+        , CAST(status AS INT)                                   AS status_pedido
+        , CAST(onlineorderflag AS BOOLEAN)                      AS indicador_pedido_online
+        , CAST(purchaseordernumber AS STRING)                   AS numero_pedido_compra
+        , REGEXP_REPLACE(
+            accountnumber
+            , '[^a-zA-Z0-9]'
+            , ''
+        )                                                       AS numero_conta
+        , CAST(creditcardapprovalcode AS STRING)                AS codigo_aprovacao_cartao
+        , CAST(comment AS STRING)                               AS comentario_pedido
+        , CAST(subtotal AS NUMERIC(28,4))                       AS subtotal
+        , CAST(taxamt AS NUMERIC(28,4))                         AS valor_imposto
+        , CAST(freight AS NUMERIC(28,4))                        AS frete
+        , CAST(totaldue AS NUMERIC(28,4))                       AS valor_total_devido
+        , CAST(rowguid AS STRING)                               AS rowguid
 
     FROM fonte_sales_salesorderheader
 
@@ -40,4 +46,3 @@ with fonte_sales_salesorderheader as (
 
 SELECT *
 FROM renomeado
-

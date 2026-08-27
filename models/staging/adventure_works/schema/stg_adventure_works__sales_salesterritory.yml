@@ -1,0 +1,49 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_salesterritory
+    description: >
+      Staging da tabela de territórios de vendas da Adventure Works.
+      Grain: uma linha por território.
+
+    columns:
+
+      - name: PK_territorio
+        description: "Identificador único do território."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_pais_regiao
+        description: "Código do país ou região associado ao território."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_countryregion')
+                field: PK_pais_regiao
+
+      - name: data_modificacao
+        description: "Data da última modificação do território na origem."
+
+      - name: nome_territorio
+        description: "Nome do território de vendas."
+
+      - name: grupo_territorio
+        description: "Grupo geográfico ao qual o território pertence."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."
+
+      - name: vendas_acumuladas_ano
+        description: "Valor de vendas acumulado no ano registrado na origem."
+
+      - name: vendas_ano_anterior
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: custo_acumulado_ano
+        description: "Custo acumulado no ano registrado na origem."
+
+      - name: custo_ano_anterior
+        description: "Custo do ano anterior registrado na origem."

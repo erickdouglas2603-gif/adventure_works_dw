@@ -1,0 +1,37 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_store
+    description: >
+      Staging da tabela de lojas da Adventure Works.
+      Grain: uma linha por loja.
+
+    columns:
+
+      - name: PK_loja
+        description: "Identificador único da loja."
+
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_vendedor
+        description: "Identificador do vendedor associado à loja."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesperson')
+                field: PK_vendedor
+
+      - name: data_modificacao
+        description: "Data da última modificação da loja na origem."
+
+      - name: nome_loja
+        description: "Nome da loja."
+
+      - name: dados_demograficos
+        description: "Informações demográficas da loja."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

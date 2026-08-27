@@ -8,15 +8,17 @@ WITH fonte_person_address AS (
 , renomeado AS (
 
     SELECT
-        CAST(addressid AS INT)              AS PK_address
-        , CAST(addressline1 AS STRING)      AS address_line_1
-        , CAST(addressline2 AS STRING)      AS address_line_2
-        , CAST(city AS STRING)              AS city
-        , CAST(stateprovinceid AS INT)      AS FK_state_province
-        , CAST(postalcode AS STRING)        AS postal_code
-        , CAST(spatiallocation AS STRING)   AS spatial_location
-        , CAST(rowguid AS STRING)           AS rowguid
-        , CAST(modifieddate AS DATE)        AS modified_date
+        CAST(addressid AS INT)            AS PK_endereco
+        , CAST(stateprovinceid AS INT)    AS FK_estado_provincia
+
+        , CAST(modifieddate AS DATE)      AS data_modificacao
+
+        , CAST(addressline1 AS STRING)    AS linha_endereco_1
+        , CAST(addressline2 AS STRING)    AS linha_endereco_2
+        , CAST(city AS STRING)            AS cidade
+        , CAST(postalcode AS STRING)      AS codigo_postal
+        , CAST(spatiallocation AS STRING) AS localizacao_espacial
+        , CAST(rowguid AS STRING)         AS rowguid
 
     FROM fonte_person_address
 

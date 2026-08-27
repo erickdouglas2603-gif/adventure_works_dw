@@ -8,9 +8,11 @@ WITH fonte_person_countryregion AS (
 , renomeado AS (
 
     SELECT
-        CAST(countryregioncode AS STRING) AS PK_country_region
-        , CAST(name AS STRING)            AS country_region_name
-        , CAST(modifieddate AS DATE)      AS modified_date
+        CAST(countryregioncode AS STRING) AS PK_pais_regiao
+
+        , CAST(modifieddate AS DATE)      AS data_modificacao
+
+        , CAST(name AS STRING)            AS nome_pais_regiao
 
     FROM fonte_person_countryregion
 

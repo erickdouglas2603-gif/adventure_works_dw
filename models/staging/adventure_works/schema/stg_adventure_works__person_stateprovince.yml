@@ -1,0 +1,48 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__person_stateprovince
+    description: >
+      Staging da tabela de estados e províncias da Adventure Works.
+      Grain: uma linha por estado ou província.
+
+    columns:
+
+      - name: PK_estado_provincia
+        description: "Identificador único do estado ou província."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_pais_regiao
+        description: "Código do país ou região associado ao estado ou província."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_countryregion')
+                field: PK_pais_regiao
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao estado ou província."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesterritory')
+                field: PK_territorio
+
+      - name: data_modificacao
+        description: "Data da última modificação do registro na origem."
+
+      - name: codigo_estado_provincia
+        description: "Código do estado ou província."
+
+      - name: somente_estado_provincia
+        description: "Indica se o registro representa exclusivamente um estado ou província."
+
+      - name: nome_estado_provincia
+        description: "Nome do estado ou província."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

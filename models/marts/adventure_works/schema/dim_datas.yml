@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_datas
+    description: >
+      Dimensão calendário da Adventure Works.
+
+      Grain: uma linha por dia no período definido pela tabela calendário.
+      
+      A dimensão é utilizada para análises temporais das métricas do Data
+      Warehouse.
+
+    columns:
+
+      - name: PK_data
+        description: "Identificador único da data."
+        tests:
+          - not_null
+          - unique
+
+      - name: data_evento
+        description: "Data do calendário."
+
+      - name: dia
+        description: "Número do dia do mês."
+
+      - name: ano
+        description: "Ano correspondente à data."
+
+      - name: mes
+        description: "Número do mês correspondente à data."
+
+      - name: trimestre
+        description: "Trimestre correspondente à data."
+
+      - name: dia_da_semana
+        description: >
+          Número correspondente ao dia da semana, conforme a função DOW
+          utilizada na geração da dimensão.
+
+      - name: is_final_de_semana
+        description: >
+          Indicador booleano que identifica se a data corresponde a sábado
+          ou domingo.

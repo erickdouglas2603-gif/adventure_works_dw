@@ -1,0 +1,46 @@
+version: 2
+
+models:
+
+  - name: dim_vendedores
+    description: >
+      Dimensão de vendedores da Adventure Works.
+
+      Grain: uma linha por vendedor.
+
+      Contém informações cadastrais e indicadores comerciais
+      registrados para cada vendedor.
+
+    columns:
+
+      - name: PK_vendedor
+        description: "Identificador único do vendedor."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao vendedor."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_territorios')
+                field: PK_territorio
+
+      - name: data_modificacao
+        description: "Data da última modificação do registro."
+
+      - name: meta_vendas
+        description: "Meta de vendas definida para o vendedor."
+
+      - name: bonus
+        description: "Valor de bônus associado ao vendedor."
+
+      - name: percentual_comissao
+        description: "Percentual de comissão do vendedor."
+
+      - name: vendas_acumuladas_ano
+        description: "Valor de vendas acumulado no ano."
+
+      - name: vendas_ano_anterior
+        description: "Valor de vendas registrado no ano anterior."

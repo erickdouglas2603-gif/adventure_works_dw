@@ -1,21 +1,21 @@
-WITH sales_reason AS (
+WITH motivos_fonte AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_salesreason') }}
 
-),
+)
 
-motivos_enriquecidos AS (
+, motivos AS (
 
     SELECT
-        PK_sales_reason
-        , reason_name
-        , reason_type
-        , modified_date
+        PK_motivo_venda
+        , nome_motivo
+        , tipo_motivo
+        , data_modificacao
 
-    FROM sales_reason
+    FROM motivos_fonte
 
 )
 
 SELECT *
-FROM motivos_enriquecidos
+FROM motivos

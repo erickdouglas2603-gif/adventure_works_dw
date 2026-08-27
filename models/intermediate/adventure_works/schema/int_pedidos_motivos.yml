@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: int_pedidos_motivos
+    description: >
+      Modelo intermediário que representa a associação entre pedidos
+      de venda e motivos de venda.
+
+      Grain: uma linha por combinação entre pedido e motivo de venda.
+
+    columns:
+
+      - name: FK_pedido
+        description: "Identificador do pedido associado ao motivo."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesorderheader')
+                field: PK_pedido
+
+      - name: FK_motivo_venda
+        description: "Identificador do motivo de venda associado ao pedido."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesreason')
+                field: PK_motivo_venda

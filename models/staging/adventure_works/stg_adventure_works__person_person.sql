@@ -8,20 +8,22 @@ WITH fonte_person_person AS (
 , renomeado AS (
 
     SELECT
-        CAST(businessentityid AS INT) AS PK_business_entity
-        , CAST(persontype AS STRING) AS person_type
-        , CAST(namestyle AS BOOLEAN) AS name_style
-        , CAST(title AS STRING) AS title
-        , CAST(suffix AS STRING) AS suffix
+        CAST(businessentityid AS INT) AS PK_entidade_negocio
+
+        , CAST(modifieddate AS DATE)  AS data_modificacao
+
+        , CAST(persontype AS STRING)  AS tipo_pessoa
+        , CAST(namestyle AS BOOLEAN)  AS estilo_nome
+        , CAST(title AS STRING)       AS titulo
+        , CAST(suffix AS STRING)      AS sufixo
         , CONCAT_WS(
             ' '
             , firstname
             , middlename
             , lastname
-        ) AS person_name
-        , CAST(emailpromotion AS INT) AS email_promotion
-        , CAST(rowguid AS STRING) AS rowguid
-        , CAST(modifieddate AS DATE) AS modified_date
+        ) AS nome_pessoa
+        , CAST(emailpromotion AS INT) AS promocao_email
+        , CAST(rowguid AS STRING)     AS rowguid
 
     FROM fonte_person_person
 

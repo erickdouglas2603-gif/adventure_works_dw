@@ -1,26 +1,24 @@
-WITH 
-sales_person AS (
+WITH vendedores_fonte AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_salesperson') }}
 
 )
 
-
-,vendedores AS (
+, vendedores AS (
 
     SELECT
-        PK_sales_person
-        , FK_territory
-        , sales_quota
+        PK_vendedor
+        , FK_territorio
+        , meta_vendas
         , bonus
-        , commission_pct
-        , sales_ytd
-        , sales_last_year
-        , rowguid
-        , modified_date
+        , percentual_comissao
+        , vendas_acumuladas_ano
+        , vendas_ano_anterior
+        , data_modificacao
 
-    FROM sales_person
+
+    FROM vendedores_fonte
 
 )
 

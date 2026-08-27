@@ -1,4 +1,4 @@
-WITH int_enderecos AS (
+WITH enderecos AS (
 
     SELECT *
     FROM {{ ref('int_dimensao_enderecos') }}
@@ -6,18 +6,19 @@ WITH int_enderecos AS (
 )
 
 SELECT
-    PK_address
-    , address_line_1
-    , address_line_2
-    , city
-    , postal_code
-    , FK_state_province
-    , state_province_code
-    , state_province_name
-    , FK_country_region
-    , country_region_name
-    , rowguid
-    , modified_date
+    PK_endereco
 
-FROM int_enderecos
+    , FK_estado_provincia
+    , FK_pais_regiao
 
+    , linha_endereco_1
+    , linha_endereco_2
+    , cidade
+    , codigo_postal
+    , codigo_estado_provincia
+    , nome_estado_provincia
+    , nome_pais_regiao
+
+    , data_modificacao
+
+FROM enderecos

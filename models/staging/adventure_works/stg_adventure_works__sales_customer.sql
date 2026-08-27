@@ -1,19 +1,21 @@
-with fonte_sales_customer as (
+WITH fonte_sales_customer AS (
 
     SELECT *
     FROM {{ source('adventure_works', 'sales_customer') }}
 
 )
 
-,renomeado as (
+, renomeado AS (
 
     SELECT
-        cast(customerid as int)               AS PK_customer
-        , cast(personid as int)               AS FK_person
-        , cast(storeid as int)                AS FK_store
-        , cast(territoryid as int)            AS FK_territory
-        , rowguid
-        , cast(modifieddate as date)          AS modified_date
+        CAST(customerid AS INT)         AS PK_cliente
+        , CAST(personid AS INT)         AS FK_pessoa
+        , CAST(storeid AS INT)          AS FK_loja
+        , CAST(territoryid AS INT)      AS FK_territorio
+
+        , CAST(modifieddate AS DATE)    AS data_modificacao
+
+        , CAST(rowguid AS STRING)       AS rowguid
 
     FROM fonte_sales_customer
 

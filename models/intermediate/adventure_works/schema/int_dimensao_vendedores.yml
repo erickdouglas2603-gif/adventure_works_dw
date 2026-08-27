@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: int_dimensao_vendedores
+    description: >
+      Modelo intermediário da dimensão de vendedores.
+
+      Grain: uma linha por vendedor.
+
+    columns:
+
+      - name: PK_vendedor
+        description: "Identificador único do vendedor."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao vendedor."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesterritory')
+                field: PK_territorio
+
+      - name: data_modificacao
+        description: "Data da última alteração do registro."
+
+      - name: meta_vendas
+        description: "Meta de vendas atribuída ao vendedor."
+
+      - name: bonus
+        description: "Valor de bônus registrado para o vendedor."
+
+      - name: percentual_comissao
+        description: "Percentual de comissão do vendedor."
+
+      - name: vendas_acumuladas_ano
+        description: "Valor de vendas acumulado no ano."
+
+      - name: vendas_ano_anterior
+        description: "Valor de vendas do ano anterior."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

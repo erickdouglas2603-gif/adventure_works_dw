@@ -1,0 +1,41 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__person_businessentityaddress
+    description: >
+      Staging da tabela associativa entre entidades de negócio,
+      endereços e tipos de endereço da Adventure Works.
+      Grain: uma linha por associação entre entidade de negócio,
+      endereço e tipo de endereço.
+
+    columns:
+
+      - name: FK_entidade_negocio
+        description: "Identificador da entidade de negócio associada ao endereço."
+        tests:
+          - not_null
+
+      - name: FK_endereco
+        description: "Identificador do endereço associado à entidade de negócio."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_address')
+                field: PK_endereco
+
+      - name: FK_tipo_endereco
+        description: "Identificador do tipo de endereço associado."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_addresstype')
+                field: PK_tipo_endereco
+
+      - name: data_modificacao
+        description: "Data da última modificação da associação na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

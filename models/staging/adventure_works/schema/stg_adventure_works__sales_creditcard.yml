@@ -1,0 +1,31 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_creditcard
+    description: >
+      Staging da tabela de cartões de crédito da Adventure Works.
+      Grain: uma linha por cartão de crédito cadastrado.
+
+    columns:
+
+      - name: PK_cartao_credito
+        description: "Identificador único do cartão de crédito."
+        tests:
+          - not_null
+          - unique
+
+      - name: data_modificacao
+        description: "Data da última modificação do cartão na origem."
+
+      - name: tipo_cartao
+        description: "Tipo ou emissor do cartão de crédito."
+
+      - name: numero_cartao
+        description: "Número do cartão de crédito."
+
+      - name: mes_expiracao
+        description: "Mês de expiração do cartão."
+
+      - name: ano_expiracao
+        description: "Ano de expiração do cartão."

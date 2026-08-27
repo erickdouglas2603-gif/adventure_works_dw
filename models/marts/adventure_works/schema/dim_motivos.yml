@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_motivos
+    description: >
+      Dimensão de motivos de venda da Adventure Works.
+
+      Grain: uma linha por motivo de venda.
+
+    columns:
+
+      - name: PK_motivo_venda
+        description: "Identificador único do motivo de venda."
+        tests:
+          - not_null
+          - unique
+
+      - name: nome_motivo
+        description: "Nome do motivo da venda."
+
+      - name: tipo_motivo
+        description: "Tipo ou categoria do motivo da venda."
+
+      - name: data_modificacao
+        description: "Data da última alteração do registro na origem."

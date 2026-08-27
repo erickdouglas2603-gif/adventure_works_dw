@@ -1,0 +1,31 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__production_productmodel
+    description: >
+      Staging da tabela de modelos de produtos da Adventure Works.
+      Grain: uma linha por modelo de produto.
+
+    columns:
+
+      - name: PK_modelo_produto
+        description: "Identificador único do modelo de produto."
+        tests:
+          - not_null
+          - unique
+
+      - name: data_modificacao
+        description: "Data da última modificação do modelo na origem."
+
+      - name: nome_modelo_produto
+        description: "Nome do modelo de produto."
+
+      - name: descricao_catalogo
+        description: "Descrição do produto armazenada no catálogo."
+
+      - name: instrucoes
+        description: "Instruções associadas ao modelo de produto."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dim_cartoes
+    description: >
+      Dimensão de cartões de crédito da Adventure Works.
+      
+      Grain: uma linha por cartão de crédito cadastrado na origem.
+
+    columns:
+
+      - name: PK_cartao_credito
+        description: "Identificador único do cartão de crédito."
+        tests:
+          - not_null
+          - unique
+
+      - name: tipo_cartao
+        description: "Tipo do cartão de crédito."
+
+      - name: numero_cartao
+        description: "Número do cartão de crédito."
+
+      - name: mes_expiracao
+        description: "Mês de expiração do cartão."
+
+      - name: ano_expiracao
+        description: "Ano de expiração do cartão."
+
+      - name: data_modificacao
+        description: "Data da última alteração do registro na origem."

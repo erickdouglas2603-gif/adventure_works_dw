@@ -1,0 +1,34 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__production_productsubcategory
+    description: >
+      Staging da tabela de subcategorias de produtos da Adventure Works.
+      Grain: uma linha por subcategoria de produto.
+
+    columns:
+
+      - name: PK_subcategoria_produto
+        description: "Identificador único da subcategoria de produto."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_categoria_produto
+        description: "Identificador da categoria à qual a subcategoria pertence."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__production_productcategory')
+                field: PK_categoria_produto
+
+      - name: data_modificacao
+        description: "Data da última modificação da subcategoria na origem."
+
+      - name: nome_subcategoria_produto
+        description: "Nome da subcategoria de produto."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

@@ -1,80 +1,85 @@
-WITH product AS (
+WITH produtos AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__production_product') }}
 
-),
+)
 
-product_subcategory AS (
+, subcategorias AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__production_productsubcategory') }}
 
-),
+)
 
-product_category AS (
+, categorias AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__production_productcategory') }}
 
-),
+)
 
-product_model AS (
+, modelos AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__production_productmodel') }}
 
-),
+)
 
-produto_enriquecido AS (
+, produtos_enriquecidos AS (
 
     SELECT
-        p.PK_product
-        , p.product_name
-        , p.product_number
-        , p.make_flag
-        , p.finished_goods_flag
-        , p.color
-        , p.safety_stock_level
-        , p.reorder_point
-        , p.standard_cost
-        , p.list_price
-        , p.product_size
-        , p.size_unit_measure_code
-        , p.weight_unit_measure_code
-        , p.product_weight
-        , p.days_to_manufacture
-        , p.product_line
-        , p.class
-        , p.style
+        p.PK_produto
 
-        , p.FK_product_sub_category
-        , ps.product_sub_category_name
+        -- FKs
+        , p.FK_subcategoria_produto
+        , ps.FK_categoria_produto
+        , p.FK_modelo_produto
 
-        , ps.FK_product_category
-        , pc.product_category_name
+        -- Datas
+        , p.data_inicio_venda
+        , p.data_fim_venda
+        , p.data_descontinuacao
 
-        , p.FK_product_model_id
-        , pm.product_model_name
-        , pm.catalog_description
-        , pm.instructions
+        -- Atributos do produto
+        , p.nome_produto
+        , p.numero_produto
+        , p.indicador_fabricacao
+        , p.indicador_produto_acabado
+        , p.cor
+        , p.tamanho_produto
+        , p.codigo_unidade_tamanho
+        , p.codigo_unidade_peso
+        , p.linha_produto
+        , p.classe
+        , p.estilo
+        -- Atributos de estoque e preço
+        , p.estoque_seguranca
+        , p.ponto_reposicao
+        , p.custo_padrao
+        , p.preco_lista
+        , p.peso_produto
+        , p.dias_fabricacao
+        -- Descrição da hierarquia do produto
+        , ps.nome_subcategoria_produto
+        , pc.nome_categoria_produto
+        , pm.nome_modelo_produto
+        , pm.descricao_catalogo
+        , pm.instrucoes
+        , p.data_modificacao
 
-        , p.sell_start_date
-        , p.sell_end_date
-        , p.discontinued_date
-        
-    FROM product p
+    FROM produtos p
 
-    LEFT JOIN product_subcategory ps
-        ON p.FK_product_sub_category = ps.PK_product_sub_category
+    LEFT JOIN subcategorias ps
+        ON p.FK_subcategoria_produto = ps.PK_subcategoria_produto
 
-    LEFT JOIN product_category pc
-        ON ps.FK_product_category = pc.PK_product_category
+    LEFT JOIN categorias pc
+        ON ps.FK_categoria_produto = pc.PK_categoria_produto
 
-    LEFT JOIN product_model pm
-        ON p.FK_product_model_id = pm.PK_product_model
+    LEFT JOIN modelos pm
+        ON p.FK_modelo_produto = pm.PK_modelo_produto
 
 )
 
 SELECT *
-FROM produto_enriquecido
+FROM produtos_enriquecidos

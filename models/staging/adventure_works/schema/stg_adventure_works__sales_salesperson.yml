@@ -1,0 +1,45 @@
+version: 2
+
+models:
+
+  - name: stg_adventure_works__sales_salesperson
+    description: >
+      Staging da tabela de vendedores da Adventure Works.
+      Grain: uma linha por vendedor.
+
+    columns:
+
+      - name: PK_vendedor
+        description: "Identificador único do vendedor."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_territorio
+        description: "Identificador do território associado ao vendedor."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__sales_salesterritory')
+                field: PK_territorio
+
+      - name: data_modificacao
+        description: "Data da última modificação do vendedor na origem."
+
+      - name: meta_vendas
+        description: "Meta de vendas atribuída ao vendedor."
+
+      - name: bonus
+        description: "Valor de bônus associado ao vendedor."
+
+      - name: percentual_comissao
+        description: "Percentual de comissão do vendedor."
+
+      - name: vendas_acumuladas_ano
+        description: "Valor acumulado de vendas no ano registrado na origem."
+
+      - name: vendas_ano_anterior
+        description: "Valor de vendas do ano anterior registrado na origem."
+
+      - name: rowguid
+        description: "Identificador global do registro na origem."

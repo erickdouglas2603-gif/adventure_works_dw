@@ -1,73 +1,76 @@
-WITH sales_order_header AS (
+WITH cabecalho_pedidos AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_salesorderheader') }}
 
-),
+)
 
-sales_order_detail AS (
+, itens_pedidos AS (
 
     SELECT *
     FROM {{ ref('stg_adventure_works__sales_salesorderdetail') }}
 
-),
+)
 
-vendas_enriquecidas AS (
+, vendas_enriquecidas AS (
 
     SELECT
 
         -- Grain: 1 linha por item de pedido
-        d.PK_sales_order_detail
-        , d.FK_sales_order
-        , d.FK_product
-        , d.FK_special_offer
 
-        -- Dados do pedido
-        , h.FK_customer
-        , h.FK_sales_person
-        , h.FK_territory
-        , h.FK_bill_to_address
-        , h.FK_ship_to_address
-        , h.FK_ship_method
-        , h.FK_credit_card
+        d.PK_item_pedido
 
-        , h.revision_number
-        , h.order_date
-        , h.due_date
-        , h.ship_date
-        , h.status_order
-        , h.online_order_flag
-        , h.purchase_order_number
-        , h.account_number
-        , h.credit_card_approval_code
-        , h.FK_currency_rate
+        -- FKs
+        , d.FK_pedido
+        , d.FK_produto
+        , d.FK_oferta_especial
+        , h.FK_cliente
+        , h.FK_vendedor
+        , h.FK_territorio
+        , h.FK_endereco_cobranca
+        , h.FK_endereco_entrega
+        , h.FK_metodo_envio
+        , h.FK_cartao_credito
+        , h.FK_taxa_cambio
 
-        -- Valores do pedido
-        , h.subtotal
-        , h.tax_amt
-        , h.freight
-        , h.total_due
-        , h.order_comment
+        -- Datas
+        , h.data_pedido
+        , h.data_vencimento
+        , h.data_envio
 
-        -- Dados do item
-        , d.carrier_tracking_number
-        , d.orderqty
-        , d.unit_price
-        , d.unit_price_discount
-        , d.orderqty * d.unit_price AS negotiated_value
-        , d.orderqty * d.unit_price * (1 - d.unit_price_discount ) AS net_traded_value
-        , d.rowguid AS detail_rowguid
-        , d.modified_date AS detail_modified_date
+        -- Atributos do pedido
+        , h.numero_revisao
+        , h.status_pedido
+        , h.indicador_pedido_online
+        , h.numero_pedido_compra
+        , h.numero_conta
+        , h.codigo_aprovacao_cartao
+        , h.comentario_pedido
 
-        , h.rowguid AS order_rowguid
-        , h.modified_date AS order_modified_date
+        -- Atributos do item
+        , d.numero_rastreamento
 
-    FROM sales_order_detail d
+        -- Medidas
+        , d.quantidade_pedida
+        , d.preco_unitario
+        , d.desconto_preco_unitario
 
-    INNER JOIN sales_order_header h
-        ON d.FK_sales_order = h.PK_sales_order
+        -- Métricas derivadas
+        , d.quantidade_pedida * d.preco_unitario AS valor_negociado
+        , d.quantidade_pedida
+            * d.preco_unitario
+            * (1 - d.desconto_preco_unitario) AS valor_liquido_negociado
+        -- Controle
+        , d.data_modificacao AS data_modificacao_item
+
+        , h.data_modificacao AS data_modificacao_pedido
+
+    FROM itens_pedidos d
+
+    INNER JOIN cabecalho_pedidos h
+        ON d.FK_pedido = h.PK_pedido
 
 )
 
-SELECT * 
+SELECT *
 FROM vendas_enriquecidas

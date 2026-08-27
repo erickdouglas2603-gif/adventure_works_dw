@@ -8,10 +8,11 @@ WITH fonte_person_addresstype AS (
 , renomeado AS (
 
     SELECT
-        CAST(addresstypeid AS INT)          AS PK_address_type
-        , CAST(name AS STRING)              AS name_type_address
-        , CAST(rowguid AS STRING)           AS rowguid
-        , CAST(modifieddate AS DATE)        AS modified_date
+        CAST(addresstypeid AS INT)    AS PK_tipo_endereco
+
+        , CAST(name AS STRING)        AS nome_tipo_endereco
+        , CAST(rowguid AS STRING)     AS rowguid
+        , CAST(modifieddate AS DATE)  AS data_modificacao
 
     FROM fonte_person_addresstype
 

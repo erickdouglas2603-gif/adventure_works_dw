@@ -1,4 +1,4 @@
-WITH int_produtos AS (
+WITH produtos AS (
 
     SELECT *
     FROM {{ ref('int_dimensao_produtos') }}
@@ -6,34 +6,46 @@ WITH int_produtos AS (
 )
 
 SELECT
-    PK_product
-    , product_name
-    , product_number
-    , make_flag
-    , finished_goods_flag
-    , color
-    , safety_stock_level
-    , reorder_point
-    , standard_cost
-    , list_price
-    , product_size
-    , size_unit_measure_code
-    , weight_unit_measure_code
-    , product_weight
-    , days_to_manufacture
-    , product_line
-    , class
-    , style
-    , FK_product_sub_category
-    , product_sub_category_name
-    , FK_product_category
-    , product_category_name
-    , FK_product_model_id
-    , product_model_name
-    , catalog_description
-    , instructions
-    , sell_start_date
-    , sell_end_date
-    , discontinued_date
 
-FROM int_produtos
+    -- PK
+    PK_produto
+
+    -- FKs
+    , FK_subcategoria_produto
+    , FK_categoria_produto
+    , FK_modelo_produto
+
+    -- Datas
+    , data_inicio_venda
+    , data_fim_venda
+    , data_descontinuacao
+    , data_modificacao
+
+    -- Atributos
+    , nome_produto
+    , numero_produto
+    , indicador_fabricacao
+    , indicador_produto_acabado
+    , cor
+    , tamanho_produto
+    , codigo_unidade_tamanho
+    , codigo_unidade_peso
+    , linha_produto
+    , classe
+    , estilo
+
+    , nome_subcategoria_produto
+    , nome_categoria_produto
+    , nome_modelo_produto
+    , descricao_catalogo
+    , instrucoes
+
+    -- Medidas
+    , estoque_seguranca
+    , ponto_reposicao
+    , custo_padrao
+    , preco_lista
+    , peso_produto
+    , dias_fabricacao
+
+FROM produtos
