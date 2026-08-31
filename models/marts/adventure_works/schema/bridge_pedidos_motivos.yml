@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: bridge_pedidos_motivos
+    description: >
+      Tabela bridge que representa o relacionamento entre pedidos e
+      motivos de venda.
+
+      Grain: uma linha por combinação de pedido e motivo de venda.
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - FK_pedido
+              - FK_motivo_venda
+
+    columns:
+
+      - name: FK_pedido
+        description: "Identificador do pedido associado ao motivo de venda."
+        tests:
+          - not_null
+
+      - name: FK_motivo_venda
+        description: "Identificador do motivo de venda associado ao pedido."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_motivos')
+                field: PK_motivo_venda

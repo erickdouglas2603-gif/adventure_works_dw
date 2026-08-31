@@ -21,3 +21,4 @@ WITH cartoes_fonte AS (
 
 SELECT *
 FROM cartoes
+

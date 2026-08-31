@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: dim_enderecos
+    description: >
+      Dimensão de endereços da Adventure Works, enriquecida com informações
+      de estado ou província e país ou região.
+
+      Grain: uma linha por endereço.
+
+    columns:
+
+      - name: PK_endereco
+        description: "Identificador único do endereço."
+        tests:
+          - not_null
+          - unique
+
+      - name: FK_estado_provincia
+        description: "Identificador do estado ou província associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_stateprovince')
+                field: PK_estado_provincia
+
+      - name: FK_pais_regiao
+        description: "Identificador do país ou região associado ao endereço."
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_adventure_works__person_countryregion')
+                field: PK_pais_regiao
+
+      - name: linha_endereco_1
+        description: "Primeira linha do endereço."
+
+      - name: linha_endereco_2
+        description: "Segunda linha do endereço. Pode ser nula."
+
+      - name: cidade
+        description: "Cidade do endereço."
+
+      - name: codigo_postal
+        description: "Código postal do endereço."
+
+      - name: codigo_estado_provincia
+        description: "Código do estado ou província."
+
+      - name: nome_estado_provincia
+        description: "Nome do estado ou província."
+
+      - name: nome_pais_regiao
+        description: "Nome do país ou região."
+
+      - name: localizacao_espacial
+        description: "Informação de localização espacial proveniente da origem."
+
+      - name: data_modificacao
+        description: "Data da última modificação do endereço na origem."

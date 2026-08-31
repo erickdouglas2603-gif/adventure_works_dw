@@ -3,8 +3,8 @@ WITH date_spine AS (
     {{
         dbt_utils.date_spine(
             datepart="day",
-            start_date="cast('2000-01-01' as date)",
-            end_date="cast('2030-01-01' as date)"
+            start_date="cast('2011-01-01' as date)",
+            end_date="cast('2015-01-01' as date)"
         )
     }}
 
@@ -18,8 +18,10 @@ WITH date_spine AS (
         , EXTRACT(DAY FROM date_day) AS dia
         , EXTRACT(YEAR FROM date_day) AS ano
         , EXTRACT(MONTH FROM date_day) AS mes
+        , DATE_FORMAT(date_day, 'yyyy-MM') AS ano_mes
         , EXTRACT(QUARTER FROM date_day) AS trimestre
         , EXTRACT(DOW FROM date_day) AS dia_da_semana
+
         , CASE
             WHEN EXTRACT(DOW FROM date_day) IN (0, 6)
                 THEN TRUE
