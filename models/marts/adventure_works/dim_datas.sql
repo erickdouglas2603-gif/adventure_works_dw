@@ -12,6 +12,7 @@ SELECT
     , mes
     , trimestre
     , ano
+    , ano_mes
     , dia_da_semana
     , is_final_de_semana
 
