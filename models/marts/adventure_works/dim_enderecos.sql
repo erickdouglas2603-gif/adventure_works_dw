@@ -19,6 +19,6 @@ SELECT
     , nome_estado_provincia
     , nome_pais_regiao
 
-    , data_modificacao
+ 
 
 FROM enderecos

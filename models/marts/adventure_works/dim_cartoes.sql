@@ -10,9 +10,8 @@ SELECT
 
     , tipo_cartao
     , numero_cartao
-    , mes_expiracao
-    , ano_expiracao
 
-    , data_modificacao
+
+
 
 FROM cartoes

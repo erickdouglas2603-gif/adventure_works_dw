@@ -9,18 +9,6 @@ SELECT
 
     -- PK
     PK_produto
-
-    -- FKs
-    , FK_subcategoria_produto
-    , FK_categoria_produto
-    , FK_modelo_produto
-
-    -- Datas
-    , data_inicio_venda
-    , data_fim_venda
-    , data_descontinuacao
-    , data_modificacao
-
     -- Atributos
     , nome_produto
     , numero_produto
