@@ -11,31 +11,19 @@ SELECT
     PK_item_pedido
 
     -- FKs
-    , FK_pedido
     , FK_produto
-    , FK_oferta_especial
     , FK_cliente
-    , FK_vendedor
-    , FK_territorio
     , FK_endereco_entrega
     , FK_cartao_credito
     -- Datas
     , data_pedido
     , data_vencimento
     , data_envio
-
     -- Atributos do pedido
     , numero_revisao
     , status_pedido
     , indicador_pedido_online
     , numero_pedido_compra
-    , numero_conta
-    , codigo_aprovacao_cartao
-    , comentario_pedido
-
-    -- Atributos do item
-    , numero_rastreamento
-
     -- Medidas
     , quantidade_pedida
     , preco_unitario
