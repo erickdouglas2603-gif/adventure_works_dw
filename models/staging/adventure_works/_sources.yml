@@ -6,18 +6,59 @@ sources:
     schema: adventure_works
 
     tables:
+
       - name: production_product
+        columns:
+          - name: productid
+            description: Identificador único do produto.
+            tests:
+              - not_null
+              - unique
+
       - name: production_productsubcategory
       - name: production_productcategory
       - name: production_productmodel
       - name: person_businessentityaddress
       - name: person_addresstype
+
       - name: sales_customer
+        columns:
+          - name: customerid
+            description: Identificador único do cliente.
+            tests:
+              - not_null
+              - unique
+
       - name: sales_salesperson
       - name: sales_store
       - name: sales_salesterritory
+
       - name: sales_salesorderheader
+        columns:
+          - name: salesorderid
+            description: Identificador único do pedido.
+            tests:
+              - not_null
+              - unique
+
       - name: sales_salesorderdetail
+        columns:
+          - name: salesorderdetailid
+            description: Identificador único do item do pedido.
+            tests:
+              - not_null
+              - unique
+
+          - name: salesorderid
+            description: Identificador do pedido ao qual o item pertence.
+            tests:
+              - not_null
+
+          - name: productid
+            description: Identificador do produto vendido.
+            tests:
+              - not_null
+
       - name: sales_specialoffer
       - name: sales_creditcard
       - name: sales_currencyrate
