@@ -11,7 +11,6 @@ SELECT
     , nome_motivo
     , tipo_motivo
 
-    , data_modificacao
 
 FROM motivos
 

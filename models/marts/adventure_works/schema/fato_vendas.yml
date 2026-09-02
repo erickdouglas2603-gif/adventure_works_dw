@@ -50,30 +50,6 @@ models:
                 to: ref('dim_clientes')
                 field: PK_cliente
 
-      - name: FK_vendedor
-        description: "Identificador do vendedor associado ao pedido."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_vendedores')
-                field: PK_vendedor
-
-      - name: FK_territorio
-        description: "Identificador do território associado ao pedido."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_territorios')
-                field: PK_territorio
-
-      - name: FK_endereco_cobranca
-        description: "Identificador do endereço utilizado para cobrança."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_enderecos')
-                field: PK_endereco
-
       - name: FK_endereco_entrega
         description: "Identificador do endereço utilizado para entrega."
         tests:

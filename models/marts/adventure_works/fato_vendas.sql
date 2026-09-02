@@ -11,6 +11,7 @@ SELECT
     PK_item_pedido
 
     -- FKs
+    , FK_pedido
     , FK_produto
     , FK_cliente
     , FK_endereco_entrega

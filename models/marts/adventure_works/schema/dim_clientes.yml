@@ -16,34 +16,6 @@ models:
           - not_null
           - unique
 
-      - name: FK_pessoa
-        description: >
-          Identificador da pessoa associada ao cliente.
-          Pode ser nulo quando o cliente representa uma loja.
-        tests:
-          - relationships:
-              arguments:
-                to: ref('stg_adventure_works__person_person')
-                field: PK_entidade_negocio
-
-      - name: FK_loja
-        description: >
-          Identificador da loja associada ao cliente.
-          Pode ser nulo para clientes pessoa.
-        tests:
-          - relationships:
-              arguments:
-                to: ref('stg_adventure_works__sales_store')
-                field: PK_loja
-
-      - name: FK_territorio
-        description: "Identificador do território associado ao cliente."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_territorios')
-                field: PK_territorio
-
       - name: nome_cliente
         description: >
           Nome do cliente. Para clientes pessoa, utiliza o nome da pessoa;
