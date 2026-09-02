@@ -17,12 +17,8 @@ SELECT
     , FK_cliente
     , FK_vendedor
     , FK_territorio
-    , FK_endereco_cobranca
     , FK_endereco_entrega
-    , FK_metodo_envio
     , FK_cartao_credito
-    , FK_taxa_cambio
-
     -- Datas
     , data_pedido
     , data_vencimento
